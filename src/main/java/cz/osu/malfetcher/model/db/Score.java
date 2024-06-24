@@ -19,6 +19,12 @@ public class Score {
     @Column(nullable = false)
     private float score;
 
+    @Column(nullable = false)
+    private int rank;
+
+    @Column(nullable = false)
+    private int members;
+
     @ManyToOne
     @MapsId("animeId")
     @JoinColumn(name = "anime_id", nullable = false)

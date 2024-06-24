@@ -1,4 +1,0 @@
-insert into score values (1, '2007-5-6', 2.5)
-insert into anime values (1, 'lol')
-select * from anime
-select * from score

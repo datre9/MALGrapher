@@ -22,6 +22,9 @@ public class Anime {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String url;
+
     @OneToMany(mappedBy = "anime")
     private List<Score> scores;
 }
