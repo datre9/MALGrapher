@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface ScoreRepo extends CrudRepository<Score, ScoreComposite> {
-    List<Score> findScoresByAnime(Anime anime);
+    List<Score> findScoresByAnimeId(int AnimeId);
 }

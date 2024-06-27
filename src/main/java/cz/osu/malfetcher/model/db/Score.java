@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
@@ -13,8 +15,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @Table(name = "score")
 public class Score {
-    @EmbeddedId
-    private ScoreComposite id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
+
+    @Column(nullable = false)
+    private int animeId;
 
     @Column(nullable = false)
     private float score;
@@ -25,8 +31,14 @@ public class Score {
     @Column(nullable = false)
     private int members;
 
-    @ManyToOne
-    @MapsId("animeId")
-    @JoinColumn(name = "anime_id", nullable = false)
-    private Anime anime;
+    @Column(nullable = false)
+    private LocalDate date;
+
+    public Score(int animeId, float score, int rank, int members, LocalDate date) {
+        this.animeId = animeId;
+        this.score = score;
+        this.rank = rank;
+        this.members = members;
+        this.date = date;
+    }
 }
