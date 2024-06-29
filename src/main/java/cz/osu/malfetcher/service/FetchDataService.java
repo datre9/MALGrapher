@@ -1,6 +1,7 @@
 package cz.osu.malfetcher.service;
 
 import com.google.gson.Gson;
+import cz.osu.malfetcher.model.Season;
 import cz.osu.malfetcher.model.db.Anime;
 import cz.osu.malfetcher.model.db.Score;
 import cz.osu.malfetcher.model.json.AnimeData;
@@ -13,10 +14,12 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Service
 @AllArgsConstructor
@@ -25,21 +28,44 @@ public class FetchDataService {
     private final AnimeRepo animeRepo;
     private final ScoreRepo scoreRepo;
 
-    public void getData(URI uri) {
-        HttpRequest getRequest = HttpRequest.newBuilder(uri).build();
-        HttpClient httpClient = HttpClient.newHttpClient();
+    private ArrayList<URI> createURIs() {
+        ArrayList<Season> seasons = Season.getLastYearOfSeasons();
+        ArrayList<URI> uris = new ArrayList<>();
 
-        HttpResponse<String> getResponse;
-
-        try {
-            getResponse = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+        for (Season season : seasons) {
+            try {
+                uris.add(new URI("https://api.jikan.moe/v4/seasons/" + season.getYear() + "/" + season.getSeason()));
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
         }
+        return uris;
+    }
 
+    public void getData() {
+        HttpClient httpClient = HttpClient.newHttpClient();
+        ArrayList<URI> uris = createURIs();
+
+        for (URI uri : uris) {
+            HttpRequest getRequest = HttpRequest.newBuilder(uri).build();
+
+            HttpResponse<String> getResponse;
+
+            try {
+                getResponse = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
+            } catch (IOException | InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            parseData(getResponse.body());
+
+            try {
+                Thread.sleep(350);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
         httpClient.close();
-
-        parseData(getResponse.body());
     }
 
     private void parseData(String data) {
