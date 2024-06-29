@@ -48,8 +48,8 @@ public class FetchDataService {
         AnimeResponse animeResponse = gson.fromJson(data, AnimeResponse.class);
 
         for (AnimeData x : animeResponse.getData()) {
-            animeRepo.save(new Anime(Integer.parseInt(x.getMal_id()), x.getTitle(), x.getUrl()));
-            scoreRepo.save(new Score(Integer.parseInt(x.getMal_id()), x.getScore(), x.getRank(), x.getMembers(), LocalDate.now()));
+            animeRepo.save(new Anime(x.getMal_id(), x.getTitle(), x.getUrl(), x.getSeason(), x.getYear()));
+            scoreRepo.save(new Score(x.getMal_id(), x.getScore(), x.getRank(), x.getMembers(), LocalDate.now()));
         }
     }
 }

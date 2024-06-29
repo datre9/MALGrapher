@@ -25,4 +25,10 @@ public class Anime {
 
     @Column(nullable = false)
     private String url;
+
+    @Column(nullable = false)
+    private String season;
+
+    @Column(nullable = false)
+    private int year;
 }
