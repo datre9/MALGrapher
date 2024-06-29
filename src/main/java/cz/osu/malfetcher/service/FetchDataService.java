@@ -42,40 +42,62 @@ public class FetchDataService {
         return uris;
     }
 
-    public void getData() {
+    public void getData() throws URISyntaxException {
         HttpClient httpClient = HttpClient.newHttpClient();
         ArrayList<URI> uris = createURIs();
+        int totalPageCount = 1;
 
         for (URI uri : uris) {
-            HttpRequest getRequest = HttpRequest.newBuilder(uri).build();
+            URI uriFinal = new URI(uri.toString() + "?page=");
 
-            HttpResponse<String> getResponse;
+            int pageIndex = 1;
+            boolean goNext = true;
 
-            try {
-                getResponse = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
-            } catch (IOException | InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            while (goNext) {
+                HttpRequest getRequest = HttpRequest.newBuilder(new URI(uriFinal.toString() + pageIndex)).build();
 
-            parseData(getResponse.body());
+                HttpResponse<String> getResponse;
 
-            try {
-                Thread.sleep(350);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                try {
+                    getResponse = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
+                } catch (IOException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (parseData(getResponse.body())) {
+                    goNext = false;
+                }
+
+
+                System.out.println(totalPageCount + ": " + getResponse.statusCode());
+                totalPageCount++;
+                pageIndex++;
             }
         }
+
+        System.out.println("Finished!");
         httpClient.close();
     }
 
-    private void parseData(String data) {
+    private boolean parseData(String data) {
         Gson gson = new Gson();
 
         AnimeResponse animeResponse = gson.fromJson(data, AnimeResponse.class);
 
+        if (animeResponse.toString().equals("AnimeResponse(data=[])")) return true;
+
         for (AnimeData x : animeResponse.getData()) {
+            if (x.getScore() == 0) continue;
             animeRepo.save(new Anime(x.getMal_id(), x.getTitle(), x.getUrl(), x.getSeason(), x.getYear()));
             scoreRepo.save(new Score(x.getMal_id(), x.getScore(), x.getRank(), x.getMembers(), LocalDate.now()));
         }
+
+        return false;
     }
 }
