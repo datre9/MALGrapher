@@ -94,6 +94,7 @@ public class FetchDataService {
 
         for (AnimeData x : animeResponse.getData()) {
             if (x.getScore() == 0) continue;
+            if (scoreRepo.existsByDate(LocalDate.now()) && scoreRepo.existsByAnimeId(x.getMal_id())) continue;
             animeRepo.save(new Anime(x.getMal_id(), x.getTitle(), x.getUrl(), x.getSeason(), x.getYear()));
             scoreRepo.save(new Score(x.getMal_id(), x.getScore(), x.getRank(), x.getMembers(), LocalDate.now()));
         }
