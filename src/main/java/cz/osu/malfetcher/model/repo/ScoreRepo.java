@@ -9,6 +9,5 @@ import java.time.LocalDate;
 
 @Repository
 public interface ScoreRepo extends CrudRepository<Score, ScoreComposite> {
-    boolean existsByAnimeId(int animeId);
-    boolean existsByDate(LocalDate date);
+    boolean existsByAnimeIdAndDate(int animeId, LocalDate date);
 }
