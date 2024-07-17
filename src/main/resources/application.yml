@@ -7,4 +7,5 @@ spring:
     password: admin
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      #WARNING: do not touch, will delete whole database
+      ddl-auto: update #zmeneno z create-drop na GitHub, generuje .jar, ktery se uz pouziva
