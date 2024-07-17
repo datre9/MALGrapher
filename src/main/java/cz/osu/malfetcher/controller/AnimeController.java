@@ -1,8 +1,11 @@
 package cz.osu.malfetcher.controller;
 
 import cz.osu.malfetcher.service.FetchDataService;
+import cz.osu.malfetcher.service.GetDataService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URISyntaxException;
@@ -11,9 +14,11 @@ import java.net.URISyntaxException;
 @CrossOrigin()
 public class AnimeController {
     private final FetchDataService fetchDataService;
+    private final GetDataService getDataService;
 
-    public AnimeController(FetchDataService fetchDataService) {
+    public AnimeController(FetchDataService fetchDataService, GetDataService getDataService) {
         this.fetchDataService = fetchDataService;
+        this.getDataService = getDataService;
     }
 
     @GetMapping("/fetch")
@@ -23,5 +28,10 @@ public class AnimeController {
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @GetMapping("/get/scores")
+    public ResponseEntity<Object> getScoresForAnimeId(@RequestParam int id) {
+        return getDataService.getScoresForAnimeId(id);
     }
 }
