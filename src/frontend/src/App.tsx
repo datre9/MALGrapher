@@ -2,6 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import Graph from "./Graph"
 import Header from "./Header"
+import { Alert } from "@mui/material"
 
 interface Score {
     id: number
@@ -16,22 +17,31 @@ function App() {
     const [scores, setScores] = useState<Score[]>([])
     const [id, setId] = useState('')
     const [selection, setSelection] = useState<String>()
+    const [badIsRequest, setIsBadRequest] = useState(false)
 
     const handleSearch = (id: any) => {
         setId(id)
     }
 
-    //TODO: warning message when graph does not update because of bad request
+    const handleSelection = (s: any) => {
+        setSelection(s)
+    }
+
     useEffect(() => {
+        setIsBadRequest(false)
+        if (id === '') return
         axios.get(`http://localhost:8080/get/scores?id=${id}`)
             .then(res => setScores(res.data))
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err)
+                setIsBadRequest(true)
+            })
     }, [id])
 
-    //TODO: implement selecting different graph data (members, score, ...)
     return (
         <div>
-            <Header onSearch={handleSearch}/>
+            <Header onSearch={handleSearch} onSelection={handleSelection}/>
+            {badIsRequest ? <Alert severity="error">No records for this anime or anime does not exist</Alert> : null}
             <Graph scores={scores} selection={selection}/>
         </div>
     );
