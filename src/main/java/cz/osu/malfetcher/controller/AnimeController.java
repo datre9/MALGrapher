@@ -2,6 +2,7 @@ package cz.osu.malfetcher.controller;
 
 import cz.osu.malfetcher.service.FetchDataService;
 import cz.osu.malfetcher.service.GetDataService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,5 +34,14 @@ public class AnimeController {
     @GetMapping("/get/scores")
     public ResponseEntity<Object> getScoresForAnimeId(@RequestParam int id) {
         return getDataService.getScoresForAnimeId(id);
+    }
+
+    @GetMapping("/get/popular")
+    public ResponseEntity<Object> getPopularAnime(@RequestParam String season, @RequestParam int year) {
+        try {
+            return getDataService.getPopularAnime(season, year);
+        } catch (IndexOutOfBoundsException _) {
+            return new ResponseEntity<>("This page contains no further anime", HttpStatus.NOT_FOUND);
+        }
     }
 }
