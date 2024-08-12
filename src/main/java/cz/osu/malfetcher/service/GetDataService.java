@@ -36,13 +36,13 @@ public class GetDataService {
         List<Integer> animeIds = new ArrayList<>();
         anime.forEach(x -> animeIds.add(x.getId()));
         if (animeIds.isEmpty()) {
-            return new ResponseEntity<>("No anime with were found during this season " + season + " " + year, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("No anime with were found during this season  \"" + season + " " + year + "\"", HttpStatus.NOT_FOUND);
         }
 
         List<Score> scores = new ArrayList<>();
         for (Integer i : animeIds) {
             List<Score> temp = scoreRepo.findByAnimeId(i);
-            scores.add(temp.stream().max(Comparator.comparingInt(Score::getId)).get());
+            scores.add(temp.stream().max(Comparator.comparingInt(Score::getId)).orElse(null));
         }
         scores.sort(Comparator.comparingInt(Score::getRank));
 
