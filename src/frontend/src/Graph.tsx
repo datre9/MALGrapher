@@ -11,36 +11,38 @@ interface Score {
 }
 
 function Graph(props: any) {
-    const [scores, setScores] = useState<Score[]>(props.scores)
+    //const [scores, setScores] = useState<Score[]>(props.scores)
     const [dates, setDates] = useState<Date[]>([])
     const [selectedArray, setSelectedArray] = useState<any[]>([])
     const [graphLabel, setGraphLabel] = useState('')
 
     useEffect(() => {
-        setScores(props.scores)
+        //setScores(props.scores)
 
         const selection = props.selection
         let addArray: any[] = []
 
-        const addDate = scores.map((score) => new Date(score.date))
+        const addDate = props.scores.map((score:Score) => new Date(score.date))
         setDates(addDate)
 
         switch (selection) {
             case 'score':
-                addArray = scores.map((score) => score.score)
+                addArray = props.scores.map((score:Score) => score.score)
                 setGraphLabel('Score')
                 break;
             case 'members':
-                addArray = scores.map((score) => score.members)
+                addArray = props.scores.map((score:Score) => score.members)
                 setGraphLabel('Member')
                 break;
             case 'rank':
-                addArray = scores.map((score) => score.rank)
+                addArray = props.scores.map((score:Score) => score.rank)
                 setGraphLabel('Rank')
                 break;
         }
 
         setSelectedArray(addArray)
+
+        console.log(props.scores.at(1)?.animeId)
     }, [props])
 
     const dateNumberFormatter = (date: Date) => date.getFullYear().toString() + '.' + date.getMonth().toString() + '.' + date.getDate().toString()
