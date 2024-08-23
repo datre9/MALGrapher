@@ -44,7 +44,7 @@ public class GetDataService {
             List<Score> temp = scoreRepo.findByAnimeId(i);
             scores.add(temp.stream().max(Comparator.comparingInt(Score::getId)).orElse(null));
         }
-        scores.sort(Comparator.comparingInt(Score::getRank));
+        scores.sort(Comparator.comparingInt(Score::getMembers).reversed());
 
         List<Anime> topAnime = new ArrayList<>();
         for (Score s : scores) {
