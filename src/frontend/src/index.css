@@ -11,6 +11,26 @@
     -webkit-text-fill-color: white;
 }
 
+.vsc-initialized select{
+    border: solid;
+    border-radius: 5px;
+    border-color: hsl(0, 0%, 10%);
+
+    color: white;
+    background-color: hsl(0, 0%, 0%);
+
+    width: 200px;
+    min-height: 40px;
+    margin: 5px;
+
+    font-size: 1em;
+
+    cursor: pointer;
+}
+.vsc-initialized option{
+    background-color: hsl(0, 0%, 0%);
+}
+
 .header{
     display: flex;
     justify-content: space-between;
