@@ -78,7 +78,7 @@ function App() {
     }
 
     return (
-        <div>
+        <div className="app">
             <Header onSearch={handleSearch} />
             {isBadRequest ? <Alert severity="error">No records for this anime or anime does not exist</Alert> : null}
 

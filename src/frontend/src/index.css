@@ -1,0 +1,26 @@
+.vsc-initialized{
+    background-color: black;
+    color: white;
+}
+.graph{
+    padding: 20px;
+}
+.MuiChartsTooltip-table{
+    background-color:hsl(0, 0%, 10%);
+    color: white;
+    -webkit-text-fill-color: white;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+.header-logo{
+    display: flex;
+    align-items: baseline;
+}
+.header-logo img{
+    max-width: 50px;
+    margin-right: 5px;
+}
