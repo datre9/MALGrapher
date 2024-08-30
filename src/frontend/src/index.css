@@ -15,12 +15,53 @@
     display: flex;
     justify-content: space-between;
     padding: 5px;
+    margin-bottom: 5px;
+
+    /* cursor:pointer; */
 }
 .header-logo{
     display: flex;
     align-items: baseline;
 }
+#page-name{
+    margin: 0;
+}
 .header-logo img{
     max-width: 50px;
     margin-right: 5px;
+}
+.header-search{
+    display: flex;
+    align-items: stretch;
+}
+.header-search input{
+    width: 200px;
+    margin-right: 5px;
+
+    color: white;
+    background-color: black;
+
+    border-style:solid;
+    border-color: hsl(0, 0%, 20%);
+    border-width: 3px;
+    border-radius: 5px;
+
+    font-size: 1em;
+}
+.header-search button{
+    width: 100px;
+
+    color: white;
+    background-color: black;
+
+    border-style:solid;
+    border-color: hsl(0, 0%, 20%);
+    border-width: 3px;
+    border-radius: 5px;
+
+    font-size: 1em;
+}
+.header-search button:hover{
+    background-color: hsl(0, 0%, 20%);
+    cursor:pointer;
 }

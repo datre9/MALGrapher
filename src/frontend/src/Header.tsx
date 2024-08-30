@@ -20,7 +20,7 @@ function Header({ onSearch }: headerProps) {
         <div className="header">
             <div className="header-logo">
                 <img src={imageUrl} alt="logo" />
-                <h2>MAL Grapher</h2>
+                <h2 id="page-name">MAL Grapher</h2>
             </div>
             <div className="header-search">
                 <input type="text" value={id} placeholder="Anime ID" onChange={handleInputChange} />
