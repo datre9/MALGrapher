@@ -2,8 +2,8 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import Graph from "./Graph"
 import Header from "./Header"
-import { Alert } from "@mui/material"
 import Selection from "./Selection"
+import Alert from "./Alert"
 
 interface Score {
     id: number
@@ -77,16 +77,23 @@ function App() {
         setSelection(e.target.value)
     }
 
+    const handleAlertClose = () => {
+        setIsBadRequest(false)
+    }
+
     return (
         <div className="app">
             <Header onSearch={handleSearch} />
-            {isBadRequest ? <Alert severity="error">No records for this anime or anime does not exist</Alert> : null}
 
-            <select value={selection} onChange={handleSelection}>
-                <option value="score">Score</option>
-                <option value="members">Members</option>
-                <option value="rank">Rank</option>
-            </select>
+            <div className="bar">
+                <select value={selection} onChange={handleSelection}>
+                    <option value="score">Score</option>
+                    <option value="members">Members</option>
+                    <option value="rank">Rank</option>
+                </select>
+
+                {isBadRequest ? <Alert message="No records of this anime exist" color="#ff0000" onSearch={handleAlertClose} /> : null}
+            </div>
 
             <Graph scores={scores} selection={selection} />
 
