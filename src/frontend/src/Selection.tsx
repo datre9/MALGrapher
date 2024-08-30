@@ -12,7 +12,6 @@ function Selection({ yearChange, seasonChange }: selectionProps) {
         if (month >= 4 && month <= 6) return 'spring'
         if (month >= 7 && month <= 9) return 'summer'
         return 'fall'
-
     }
 
     const [season, setSeason] = useState(getCurrentSeason())

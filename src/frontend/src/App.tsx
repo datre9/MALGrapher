@@ -88,11 +88,11 @@ function App() {
                 <option value="rank">Rank</option>
             </select>
 
-            <Graph scores={scores} selection={selection}/>
+            <Graph scores={scores} selection={selection} />
 
             <Selection yearChange={handleYearChange} seasonChange={handleSeasonChange} />
 
-            <ol onClick={handleAnimeClick}>{anime}</ol>
+            <ul onClick={handleAnimeClick}>{anime}</ul>
         </div>
     )
 }
