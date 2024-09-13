@@ -135,6 +135,12 @@
     height: fit-content;
 }
 
+.name{
+    font-size: 1.5em;
+    font-weight: bold;
+    align-items: center;
+}
+
 .list{
     display: flex;
     flex-direction: column;

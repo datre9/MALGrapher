@@ -24,9 +24,12 @@ interface Anime {
 
 function App() {
     const [scores, setScores] = useState<Score[]>([])
-
+    
     const [id, setId] = useState('')
     const [selection, setSelection] = useState('score')
+    
+    const [name, setName] = useState('')
+    const [Pname, setPName] = useState('')
 
     const [isBadRequest, setIsBadRequest] = useState(false)
 
@@ -54,6 +57,7 @@ function App() {
             .catch(err => {
                 console.log(err)
                 setIsBadRequest(true)
+                setName('')
             })
     }, [id])
 
@@ -81,7 +85,13 @@ function App() {
 
     const handleAlertClose = () => {
         setIsBadRequest(false)
+        setName(Pname)
     }
+
+    useEffect(() => {
+        setName(animeList.find(x => x.id == id)?.name || name)
+        setPName(name)
+    }, [id])
 
     return (
         <div className="app">
@@ -93,6 +103,8 @@ function App() {
                     <option value="members">Members</option>
                     <option value="rank">Rank</option>
                 </select>
+
+                <p className="name">{name}</p>
 
                 {isBadRequest ? <Alert message="No records of this anime exist" color="#ff0000" onSearch={handleAlertClose} /> : null}
             </div>
