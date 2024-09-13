@@ -71,6 +71,8 @@ function App() {
 
     const handleAnimeClick = (e: any) => {
         setId(e.target.id)
+        document.body.scrollTop = 0
+        document.documentElement.scrollTop = 0
     }
 
     const handleSelection = (e: any) => {
@@ -99,7 +101,7 @@ function App() {
 
             <Selection yearChange={handleYearChange} seasonChange={handleSeasonChange} />
 
-            <ul onClick={handleAnimeClick}>{anime}</ul>
+            <ul onClick={handleAnimeClick} className="list">{anime}</ul>
         </div>
     )
 }

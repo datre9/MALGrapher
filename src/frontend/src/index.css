@@ -74,7 +74,7 @@
     color: white;
     background-color: black;
 
-    border-style:solid;
+    border-style: solid;
     border-color: hsl(0, 0%, 20%);
     border-width: 3px;
     border-radius: 5px;
@@ -115,7 +115,7 @@
     font-weight: bold;
 }
 .alert button:hover{
-    cursor:pointer;
+    cursor: pointer;
 }
 .alert button:active{
     color: hsl(0, 0%, 80%);
@@ -133,4 +133,30 @@
 }
 .bar section{
     height: fit-content;
+}
+
+.list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    font-size: 1.2em;
+}
+.list li{
+    margin: 5px;
+    padding: 5px;
+    
+    border-style: solid;
+    border-color: hsl(0, 0%, 20%);
+    border-width: 3px;
+    border-radius: 5px;
+    
+    cursor: pointer;
+}
+.list li:hover{
+    background-color: hsl(0, 0%, 20%);
 }
