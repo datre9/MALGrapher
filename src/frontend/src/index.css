@@ -1,23 +1,31 @@
+:root{
+    --darkColor: hsl(0, 0%, 0%);
+    --middleColor: hsl(0, 0%, 10%);
+    --lightColor: hsl(0, 0%, 20%);
+
+    --textColor: hsl(0, 0%, 100%);
+}
+
+
 .vsc-initialized{
     background-color: black;
-    color: white;
+    color: var(--textColor);
 }
 .graph{
     padding: 20px;
 }
 .MuiChartsTooltip-table{
-    background-color:hsl(0, 0%, 10%);
-    color: white;
-    -webkit-text-fill-color: white;
+    background-color:var(--lightColor);
+    -webkit-text-fill-color: var(--textColor);
 }
 
 .vsc-initialized select{
     border: solid;
     border-radius: 5px;
-    border-color: hsl(0, 0%, 10%);
+    border-color: var(--lightColor);
 
-    color: white;
-    background-color: hsl(0, 0%, 0%);
+    color: var(--textColor);
+    background-color: var(--darkColor);
 
     width: 200px;
     min-height: 40px;
@@ -27,8 +35,11 @@
 
     cursor: pointer;
 }
+.vsc-initialized select:hover{
+    background-color: var(--lightColor);
+}
 .vsc-initialized option{
-    background-color: hsl(0, 0%, 0%);
+    background-color: var(--darkColor);
 }
 
 .header{
@@ -58,11 +69,11 @@
     width: 200px;
     margin-right: 5px;
 
-    color: white;
-    background-color: black;
+    color: var(--textColor);
+    background-color: var(--darkColor);
 
     border-style:solid;
-    border-color: hsl(0, 0%, 20%);
+    border-color: var(--lightColor);
     border-width: 3px;
     border-radius: 5px;
 
@@ -71,22 +82,22 @@
 .header-search button{
     width: 100px;
 
-    color: white;
-    background-color: black;
+    color: var(--textColor);
+    background-color: var(--darkColor);
 
     border-style: solid;
-    border-color: hsl(0, 0%, 20%);
+    border-color: var(--lightColor);
     border-width: 3px;
     border-radius: 5px;
 
     font-size: 1em;
 }
 .header-search button:hover{
-    background-color: hsl(0, 0%, 20%);
+    background-color: var(--lightColor);
     cursor:pointer;
 }
 .header-search button:active{
-    background-color: hsl(0, 0%, 10%);
+    background-color: var(--middleColor);
 }
 
 .alert{
@@ -98,7 +109,7 @@
 
     border-radius: 10px;
     
-    background-color: hsl(0, 0%, 15%);
+    background-color: var(--lightColor);
 
     font-size: 1em;
 }
@@ -107,8 +118,8 @@
     margin-left: 10px;
     padding: 0;
 
-    background-color: hsl(0, 0%, 15%);
-    color: white;
+    background-color: var(--lightColor);
+    color: var(--textColor);
 
     border-style: none;
 
@@ -157,12 +168,15 @@
     padding: 5px;
     
     border-style: solid;
-    border-color: hsl(0, 0%, 20%);
+    border-color: var(--lightColor);
     border-width: 3px;
     border-radius: 5px;
     
     cursor: pointer;
 }
 .list li:hover{
-    background-color: hsl(0, 0%, 20%);
+    background-color: var(--lightColor);
+}
+.list li:active{
+    background-color: var(--middleColor);
 }
