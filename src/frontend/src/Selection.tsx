@@ -31,10 +31,10 @@ function Selection({ yearChange, seasonChange }: selectionProps) {
     return (
         <div>
             <select value={season} onChange={handleSeason}>
+                <option value="winter">Winter</option>
                 <option value="spring">Spring</option>
                 <option value="summer">Summer</option>
                 <option value="fall">Fall</option>
-                <option value="winter">Winter</option>
             </select>
             <select value={year} onChange={handleYear}>
                 <option value="2024">2024</option>
