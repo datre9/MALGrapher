@@ -17,6 +17,16 @@ function Selection({ yearChange, seasonChange }: selectionProps) {
     const [season, setSeason] = useState(getCurrentSeason())
     const [year, setYear] = useState('')
 
+    const d = new Date()
+
+    const getYears = () => {
+        const years = []
+        for (let i = d.getFullYear(); i >= 2023; i--) {
+            years.push(<option value={i.toString()}>{i}</option>)
+        }
+
+        return years
+    }
 
     const handleSeason = (e: any) => {
         setSeason(e.target.value)
@@ -37,8 +47,7 @@ function Selection({ yearChange, seasonChange }: selectionProps) {
                 <option value="fall">Fall</option>
             </select>
             <select value={year} onChange={handleYear}>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
+                {getYears()}
             </select>
         </div>
     )
