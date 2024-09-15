@@ -16,28 +16,33 @@ public class Season {
         return lower <= x && x <= upper;
     }
 
-    public static ArrayList<Season> getLastYearOfSeasons() {
-        int month = LocalDate.now().getMonthValue();
+    public static ArrayList<Season> getSeasons() {
+        int thisMonth = LocalDate.now().getMonthValue();
+        int thisYear = LocalDate.now().getYear();
         ArrayList<Season> seasons = new ArrayList<>();
 
-        seasons.add(new Season("winter", LocalDate.now().getYear() - 1));
-        seasons.add(new Season("spring", LocalDate.now().getYear() - 1));
-        seasons.add(new Season("summer", LocalDate.now().getYear() - 1));
-        seasons.add(new Season("fall", LocalDate.now().getYear() - 1));
-
-        if (Season.isBetween(month, 1, 3)) {
-            seasons.getFirst().setYear(LocalDate.now().getYear());
-        } else if (Season.isBetween(month, 4, 6)) {
-            seasons.get(0).setYear(LocalDate.now().getYear());
-            seasons.get(1).setYear(LocalDate.now().getYear());
-        } else if (Season.isBetween(month, 7, 9)) {
-            seasons.get(0).setYear(LocalDate.now().getYear());
-            seasons.get(1).setYear(LocalDate.now().getYear());
-            seasons.get(2).setYear(LocalDate.now().getYear());
-        } else if (Season.isBetween(month, 10, 12)) {
-            seasons.forEach(x -> x.setYear(LocalDate.now().getYear()));
+        seasons.add(new Season("fall", 2023));
+        for (int i = 2024; i < thisYear + 1; i++) {
+            // check if the year is not complete (has less than 4 seasons)
+            if (i == thisYear && thisMonth < 10) {
+                if (Season.isBetween(thisMonth, 1, 3)) {
+                    seasons.add(new Season("winter", i));
+                } else if (Season.isBetween(thisMonth, 4, 6)) {
+                    seasons.add(new Season("winter", i));
+                    seasons.add(new Season("spring", i));
+                } else if (Season.isBetween(thisMonth, 7, 9)) {
+                    seasons.add(new Season("winter", i));
+                    seasons.add(new Season("spring", i));
+                    seasons.add(new Season("summer", i));
+                }
+            } else {
+                // add seasons of a complete year (all 4 seasons)
+                seasons.add(new Season("winter", i));
+                seasons.add(new Season("spring", i));
+                seasons.add(new Season("summer", i));
+                seasons.add(new Season("fall", i));
+            }
         }
-
         return seasons;
     }
 }

@@ -29,7 +29,7 @@ public class FetchDataService {
     private final ScoreRepo scoreRepo;
 
     private ArrayList<URI> createURIs() {
-        ArrayList<Season> seasons = Season.getLastYearOfSeasons();
+        ArrayList<Season> seasons = Season.getSeasons();
         ArrayList<URI> uris = new ArrayList<>();
 
         for (Season season : seasons) {
