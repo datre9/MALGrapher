@@ -6,18 +6,15 @@ interface selectionProps {
 }
 
 function Selection({ yearChange, seasonChange }: selectionProps) {
+    const d = new Date()
+
     const getCurrentSeason = () => {
-        const month = new Date().getMonth()
-        if (month >= 1 && month <= 3) return 'winter'
-        if (month >= 4 && month <= 6) return 'spring'
-        if (month >= 7 && month <= 9) return 'summer'
-        return 'fall'
+        const seasons = ['winter', 'spring', 'summer', 'fall']
+        return seasons[Math.floor(d.getMonth() / 3)]
     }
 
     const [season, setSeason] = useState(getCurrentSeason())
     const [year, setYear] = useState('')
-
-    const d = new Date()
 
     const getYears = () => {
         const years = []
